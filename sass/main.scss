@@ -163,6 +163,15 @@ Sass
       e.g. you use it inside .btn-lg and .btn-sm
     - othervise it's better to use mixins (for mainainability)
 */
+
+$color-primary: #55c57a;
+$color-primary-light: #7ed56f;
+$color-primary-dark: #28b485;
+
+$color-gray-dark: #777;
+
+$color-white: #fff;
+
 /* basic reset */
 *,
 *::after,
@@ -174,7 +183,8 @@ Sass
      since it allows us to set different box-sizing in one part of our code (e.g.
      in one section and it will be inherited by child el in that section)
   */
-  box-sizing: inherit; }
+  box-sizing: inherit;
+}
 
 html {
   /* 
@@ -192,7 +202,8 @@ html {
     10/16 = 62.5
     62.5% = 10%  
   */
-  font-size: 62.5%; }
+  font-size: 62.5%;
+}
 
 body {
   /* set global font properties in body, because font properties are inherited from parent to child el */
@@ -200,24 +211,32 @@ body {
   font-weight: 400;
   /* 1.7 x bigger than the predefined line-height */
   line-height: 1.7;
-  color: #777;
+  color: $color-gray-dark;
   padding: 3rem;
   /* padding & border are not added to el width & hight */
-  box-sizing: border-box; }
+  box-sizing: border-box;
+}
 
 .header {
   position: relative;
   height: 95vh;
   /* we basically have 2 bg imgs, first bg img is on top of the second */
   /* first optional arg in linear-gradient is location ('to right', 'to bottom right') */
-  background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url("../img/hero.jpg");
+  background-image: 
+    linear-gradient(
+      to right bottom, 
+      rgba($color-primary-light, .8), 
+      rgba($color-primary-dark, .8)
+    ), 
+    url("../img/hero.jpg");
   /* cover always tries to fit the img inside the box */
   background-size: cover;
   /* top ensures that no matter the viewport size, the top of the img stays at the top*/
   background-position: top;
   /* polygon(x y, x y, x y, x y) */
   /* website for generating: https://bennettfeely.com/clippy/ */
-  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%); }
+  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+}
 
 .header__logo-box {
   /* 
@@ -226,10 +245,12 @@ body {
   */
   position: absolute;
   top: 4rem;
-  left: 4rem; }
+  left: 4rem;
+}
 
 .header__logo {
-  height: 3.5rem; }
+  height: 3.5rem;
+}
 
 /*
 animating .logo (img) doesn't work; if we do it like this it works fine
@@ -237,6 +258,7 @@ animating .logo (img) doesn't work; if we do it like this it works fine
   animation: moveInRight 0.6s ease-in;
 }
 */
+
 .header__text-box {
   /* best way to center something (top would be 50%) */
   position: absolute;
@@ -244,10 +266,11 @@ animating .logo (img) doesn't work; if we do it like this it works fine
   left: 50%;
   transform: translate(-50%, -50%);
   /* all inline el are treated as text; text-align will affect them */
-  text-align: center; }
+  text-align: center;
+}
 
 .heading-primary {
-  color: #fff;
+  color: $color-white;
   text-transform: uppercase;
   margin-bottom: 6rem;
   /* 
@@ -256,7 +279,8 @@ animating .logo (img) doesn't work; if we do it like this it works fine
     no one knows why this is
     we solve it by adding backface-visibility to parent el
   */
-  backface-visibility: hidden; }
+  backface-visibility: hidden;
+}
 
 .heading-primary--main {
   display: block;
@@ -269,10 +293,9 @@ animating .logo (img) doesn't work; if we do it like this it works fine
   animation-duration: 1s;
   /* optional properties */
   animation-delay: 0;
-  animation-iteration-count: 1;
-  /* num of times animation happens */
-  animation-timing-function: ease-out;
-  /* value can be a cubic-besier fn */ }
+  animation-iteration-count: 1; /* num of times animation happens */
+  animation-timing-function: ease-out;  /* value can be a cubic-besier fn */
+}
 
 .heading-primary--sub {
   display: block;
@@ -281,7 +304,8 @@ animating .logo (img) doesn't work; if we do it like this it works fine
   letter-spacing: 1.75rem;
   margin-right: -1.75rem;
   /* animation: name duration timing-function delay iteration-count direction fill-mode; */
-  animation: moveInRight 1s ease-in-out; }
+  animation: moveInRight 1s ease-in-out;
+}
 
 /*
 Two types of animations in css:
@@ -300,57 +324,70 @@ Animation fix:
       set multiple transforms like this:
       transform: translateX(-100px) scale(1.2) rotate (20deg);
     */
-    transform: translateX(-10rem); }
+    transform: translateX(-10rem);
+  }
   80% {
-    transform: translate(1rem); }
+    transform: translate(1rem);
+  }
   100% {
     opacity: 1;
-    transform: translate(0); } }
-
+    transform: translate(0);
+  }
+}
 @keyframes moveInRight {
   0% {
     opacity: 0;
-    transform: translateX(10rem); }
+    transform: translateX(10rem);
+  }
   80% {
-    transform: translate(-1rem); }
+    transform: translate(-1rem);
+  }
   100% {
     opacity: 1;
-    transform: translate(0); } }
-
+    transform: translate(0);
+  }
+}
 @keyframes moveInBottom {
   0% {
     opacity: 0;
-    transform: translateY(3rem); }
+    transform: translateY(3rem);
+  }
   100% {
     opacity: 1;
-    transform: translateY(0); } }
+    transform: translateY(0);
+  }
+}
 
 /* pseudoclass (e.g. :hover) is a special state of the selector */
+
 .btn:link,
 .btn:visited {
   text-transform: uppercase;
   text-decoration: none;
   padding: 1.5rem 4rem;
-  display: inline-block;
-  /* because our btn is <a></a> */
+  display: inline-block; /* because our btn is <a></a> */
   border-radius: 10rem;
   /* transition property has to be on the initial state */
   transition: all .2s;
   position: relative;
-  font-size: 1.6rem; }
+  font-size: 1.6rem;
+}
 
 .btn:hover {
   transform: translateY(-3px);
   /* box-shadow: offsetX, offsetY, blure, color */
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2); }
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .2);
+}
 
 .btn:active {
   transform: translateY(-1px);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2); }
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .2);
+}
 
 .btn--white {
-  background-color: #fff;
-  color: #777; }
+  background-color: $color-white;
+  color: $color-gray-dark;
+}
 
 /* add virtual el after the el we selected */
 .btn::after {
@@ -366,16 +403,19 @@ Animation fix:
   top: 0;
   left: 0;
   z-index: -1;
-  transition: all .4s; }
+  transition: all .4s;
+}
 
 .btn--white::after {
-  background-color: #fff; }
+  background-color: $color-white;
+}
 
 /* when we hove the btn apply styles to ::after pseudoelement */
 .btn:hover::after {
   /* we will put transition property on the initial state, and that is .btn::after */
   transform: scaleX(1.4) scaleY(1.6);
-  opacity: 0; }
+  opacity: 0;
+}
 
 /* only one btn has this animation, so instead of adding the property to .btn or .btn-white, we added a new class */
 .btn--animated {
@@ -384,4 +424,5 @@ Animation fix:
     the styles at @keyframes 0% are applied before animation starts 
     shorthand is applied above
     animation-fill-mode: backwards;
-  */ }
+  */
+}
