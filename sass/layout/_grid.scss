@@ -1,11 +1,59 @@
 .row {
-  /* max-width is usually much better choice than width (generally in most cases) */
+  /* max-width is usually much better choice than width */
   max-width: $grid-width;
   background-color: #eee;
   margin: 0 auto;
   
-  /* select everything except last child */
+  /* select everything except last row */
   &:not(:last-child) {
     margin-bottom: $gutter-vertical;
+  }
+
+  @include cleafix;
+
+  /* attribute selectors
+    [src="img/1.jpg"] {} // select elements (imgs) with this exact src
+    [alt="Logo"] {} // select elements with this exact alt
+    [class*="col"] // select elements with class that contains "col"
+    [class^="col"] // select elements with class that starts with "col"
+    [class$="col"] // select elements with class that ends with "col"
+  */
+
+  [class^="col-"] { // select elements whose class starts with "col-"
+    background-color: orangered;
+    float: left;
+
+    &:not(:last-child) {
+      margin-right: $gutter-horizontal;
+    }
+  }
+
+  // select this class nested inside .row
+  .col-1-of-2 {
+    // calc is css functionality
+    // css allows us to do calculations between different units (e.g. 5px + 4rem), sass does not allow that because we compile sass
+    // in development, and css calc runs when page is served to user
+    // to use $sass-variable inside of css calc, wrap it in #{}
+    width: calc( (100% - #{$gutter-horizontal}) / 2 ); 
+  }
+
+  .col-1-of-3 {
+    width: calc( (100% - #{$gutter-horizontal} * 2) / 3 );
+  }
+
+  .col-2-of-3 {
+    width: calc( ( (100% - #{$gutter-horizontal} * 2) / 3 ) * 2 + #{$gutter-horizontal} );
+  }
+
+  .col-1-of-4 {
+    width: calc( (100% - #{$gutter-horizontal} * 3) / 4 );
+  }
+
+  .col-2-of-4 {
+    width: calc( ( (100% - #{$gutter-horizontal} * 3) / 4 ) * 2 + #{$gutter-horizontal} );
+  }
+
+  .col-3-of-4 {
+    width: calc( ( (100% - #{$gutter-horizontal} * 3) / 4 ) * 3 + (#{$gutter-horizontal} * 2) );
   }
 }

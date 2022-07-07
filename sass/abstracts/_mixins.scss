@@ -1,0 +1,9 @@
+// height of el containing children with "float: left|right" collapses to 0; prevent it with by adding
+// this clearfix to parent (.parent::after)
+@mixin cleafix {
+  &::after {
+    content: ""; // mandatory in pseudo el
+    display: table; // mandatory in pseudo el
+    clear: both; // clears floats
+  }
+}
