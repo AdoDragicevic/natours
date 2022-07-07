@@ -1,0 +1,512 @@
+/* basic reset */
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  /* we set box-sizing as inherit, and we define its value in body */
+  /* defining it in body, and setting inherit here is a slightly better practice
+     since it allows us to set different box-sizing in one part of our code (e.g.
+     in one section and it will be inherited by child el in that section)
+  */
+  box-sizing: inherit; }
+
+/* html selector could be moved to typography file; however, since it defines the base rule for font-size on
+   entire project, it is also valid to leave it here
+*/
+html {
+  /* 
+    it's good practice to use rem (throughout CSS); if we want to change font-size on our website (e.g. on mobile) 
+    we can change the root font-size in body, instead of adding hundreds media queries
+  */
+  /*
+    we want 1 rem to equal 10px, to make our lives easier (it is easier to calculate that 24rem is 240px,
+    than it is that 24rem is 24 x 16px
+  */
+  /*
+    to allow users to change the root font-size in the browser, we define 10% as % of 16px (default font-size in most
+    browsers), instead of hardcoding it to 10px
+    100% = 16%
+    10/16 = 62.5
+    62.5% = 10%  
+  */
+  font-size: 62.5%; }
+
+body {
+  padding: 3rem;
+  /* padding & border are not added to el width & hight */
+  box-sizing: border-box; }
+
+/*
+Two types of animations in css:
+  - transition property & change something on (e.g.) :hover
+  - keyframes & animation property
+For browser performance it's best to only animate opacity and/or transform
+Animation fix:
+  - sometimes animations introduce a little 'bug', e.g. shaking
+  - no one knows why
+  - solve it by adding backface-visibility:hidden to parent el
+*/
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    /*
+      set multiple transforms like this:
+      transform: translateX(-100px) scale(1.2) rotate (20deg);
+    */
+    transform: translateX(-10rem); }
+  80% {
+    transform: translate(1rem); }
+  100% {
+    opacity: 1;
+    transform: translate(0); } }
+
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(10rem); }
+  80% {
+    transform: translate(-1rem); }
+  100% {
+    opacity: 1;
+    transform: translate(0); } }
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(3rem); }
+  100% {
+    opacity: 1;
+    transform: translateY(0); } }
+
+body {
+  color: #777;
+  /* set global font properties in body, because font properties are inherited from parent to child el */
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  /* 1.7 x bigger than the predefined line-height */
+  line-height: 1.7; }
+
+.heading-primary {
+  color: #fff;
+  text-transform: uppercase;
+  margin-bottom: 6rem;
+  /* 
+    animation fix
+    sometimes animations introduce a little 'bug', e.g. shaking
+    no one knows why this is
+    we solve it by adding backface-visibility to parent el
+  */
+  backface-visibility: hidden; }
+  .heading-primary--main {
+    display: block;
+    font-size: 6rem;
+    font-weight: 400;
+    letter-spacing: 3.5rem;
+    margin-right: -3.5rem;
+    /* only two properties required for animation to work */
+    animation-name: moveInLeft;
+    animation-duration: 1s;
+    /* optional properties */
+    animation-delay: 0;
+    animation-iteration-count: 1;
+    /* num of times animation happens */
+    animation-timing-function: ease-out;
+    /* value can be a cubic-besier fn */ }
+  .heading-primary--sub {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1.75rem;
+    margin-right: -1.75rem;
+    /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+    animation: moveInRight 1s ease-in-out; }
+
+.heading-secondary {
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 2px;
+  transition: all .2s;
+  background-image: linear-gradient(to right, #7ed56f, #28b485);
+  display: inline-block;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent; }
+  .heading-secondary:hover {
+    transform: skewY(2deg) skewX(15deg) scale(1.1);
+    text-shadow: 0.5rem 1rem 2rem rgba(0, 0, 0, 0.2); }
+
+.heading-tertiary {
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-transform: uppercase; }
+
+.paragraph {
+  font-size: 1.6rem; }
+  .paragraph:not(:last-child) {
+    margin-bottom: 3rem; }
+
+.u-center-text {
+  text-align: center; }
+
+.u-margin-bottom-small {
+  margin-bottom: 1.5rem; }
+
+.u-margin-bottom-medium {
+  margin-bottom: 4rem; }
+
+.u-margin-bottom-big {
+  margin-bottom: 8rem; }
+
+.btn {
+  /* pseudoclass (e.g. :hover) is a special state of the selector */
+  /* add virtual el after the el we selected */
+  /* only one btn has this animation, so instead of adding the property to .btn or .btn-white, we added a new class */ }
+  .btn:link, .btn:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1.5rem 4rem;
+    display: inline-block;
+    /* because our btn is <a></a> */
+    border-radius: 10rem;
+    /* transition property has to be on the initial state */
+    transition: all .2s;
+    position: relative;
+    font-size: 1.6rem; }
+  .btn:hover {
+    transform: translateY(-3px);
+    /* box-shadow: offsetX, offsetY, blure, color */
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+    /* when we hove the btn apply styles to ::after pseudoelement */ }
+    .btn:hover::after {
+      /* we will put transition property on the initial state, and that is .btn::after */
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0; }
+  .btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2); }
+  .btn::after {
+    /* necessary properties */
+    content: "";
+    display: inline-block;
+    /* optional properties */
+    /* after el is treated as clhild of selected el */
+    height: 100%;
+    width: 100%;
+    border-radius: 10rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all .4s; }
+  .btn--white {
+    background-color: #fff;
+    color: #777; }
+    .btn--white::after {
+      background-color: #fff; }
+  .btn--animated {
+    animation: moveInBottom .5s ease-out .75s backwards;
+    /* 
+      the styles at @keyframes 0% are applied before animation starts 
+      shorthand is applied above
+      animation-fill-mode: backwards;
+    */ }
+
+.btn-text:link, .btn-text:visited {
+  color: #55c57a;
+  display: inline-block;
+  text-decoration: none;
+  border-bottom: 1px solid #55c57a;
+  padding: 3px;
+  font-size: 1.6rem;
+  transition: all .2s; }
+
+.btn-text:hover {
+  background-color: #55c57a;
+  color: #fff;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px); }
+
+.btn-text:active {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  transform: translateY(0); }
+
+.composition {
+  position: relative; }
+  .composition__photo {
+    width: 55%;
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.4);
+    border-radius: 2px;
+    position: absolute;
+    z-index: 1;
+    transition: all .2s, border-radius 1ms;
+    outline-offset: 2rem; }
+    .composition__photo--p1 {
+      left: 0;
+      top: -2rem; }
+    .composition__photo--p2 {
+      right: 0;
+      top: 2rem; }
+    .composition__photo--p3 {
+      left: 20%;
+      top: 10rem; }
+    .composition__photo:hover {
+      transform: scale(1.05) translateY(-0.5rem);
+      box-shadow: 0 2.5rem 4rem rgba(0, 0, 0, 0.5);
+      z-index: 2;
+      border-radius: 0;
+      outline: 1.5rem solid #55c57a; }
+  .composition:hover .composition__photo:not(:hover) {
+    transform: scale(0.95); }
+
+.row {
+  /* max-width is usually much better choice than width */
+  max-width: 114rem;
+  margin: 0 auto;
+  /* select everything except last row */
+  /* attribute selectors
+    [src="img/1.jpg"] {} // select elements (imgs) with this exact src
+    [alt="Logo"] {} // select elements with this exact alt
+    [class*="col"] // select elements with class that contains "col"
+    [class^="col"] // select elements with class that starts with "col"
+    [class$="col"] // select elements with class that ends with "col"
+  */ }
+  .row:not(:last-child) {
+    margin-bottom: 8rem; }
+  .row::after {
+    content: "";
+    display: table;
+    clear: both; }
+  .row [class^="col-"] {
+    float: left; }
+    .row [class^="col-"]:not(:last-child) {
+      margin-right: 6rem; }
+  .row .col-1-of-2 {
+    width: calc( (100% - 6rem) / 2); }
+  .row .col-1-of-3 {
+    width: calc( (100% - 6rem * 2) / 3); }
+  .row .col-2-of-3 {
+    width: calc( ( (100% - 6rem * 2) / 3 ) * 2 + 6rem); }
+  .row .col-1-of-4 {
+    width: calc( (100% - 6rem * 3) / 4); }
+  .row .col-2-of-4 {
+    width: calc( ( (100% - 6rem * 3) / 4 ) * 2 + 6rem); }
+  .row .col-3-of-4 {
+    width: calc( ( (100% - 6rem * 3) / 4 ) * 3 + (6rem * 2)); }
+
+.header {
+  position: relative;
+  height: 95vh;
+  /* we basically have 2 bg imgs, first bg img is on top of the second */
+  /* first optional arg in linear-gradient is location ('to right', 'to bottom right') */
+  background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url("../img/hero.jpg");
+  /* cover always tries to fit the img inside the box */
+  background-size: cover;
+  /* top ensures that no matter the viewport size, the top of the img stays at the top*/
+  background-position: top;
+  /* polygon(x y, x y, x y, x y) */
+  /* website for generating: https://bennettfeely.com/clippy/ */
+  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+  /*
+    animating .logo (img) doesn't work; if we do it like this it works fine
+    .logo-box:hover .logo {
+      animation: moveInRight 0.6s ease-in;
+    }
+  */ }
+  .header__logo-box {
+    /* 
+      reference from which el with position:absolute counts top/left/right/bottom
+      is the first parent el with position:relative
+    */
+    position: absolute;
+    top: 4rem;
+    left: 4rem; }
+  .header__logo {
+    height: 3.5rem; }
+  .header__text-box {
+    /* best way to center something (top would be 50%) */
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* all inline el are treated as text; text-align will affect them */
+    text-align: center; }
+
+.section-about {
+  background-color: #f7f7f7;
+  padding: 25rem 0;
+  margin-top: -20vh; }
+
+/*
+About CSS
+
+3 Pillars of Good CSS and HTML
+  - responsive design
+  - maintainable and scalable code
+  - web performance
+
+Responsive design principles
+  - fluid layouts
+    - float, flexbox, css-grid
+  - responsive units
+  - flexible imgs
+  - media queries
+
+How CSS works
+  - CSS parsing has 2 steps:
+    - resolve conflics (cascade)
+    - calculate values (e.g. % to px)
+
+Cascade
+  - process of combining stylesheets and resolving conflicts when more than 1 rule applies to 1 el
+  - sources: author, user, browser (default, e.g. <a></a> styles)
+  - criteria for resolving conflicts:
+    - importance (user !important, author !important, author, user, default)
+    - specificity (inline, id, class, pseudo, attribute, el, pseudo-el)
+    - order (last wins)
+
+  Specificity
+    - (inline: 0, id: 0, class: 0, el: 0)
+    - universal selector (*) has no specificity value (0, 0, 0, 0)
+
+  Order
+    - always include your own stylesheet as last stylesheet in HTML
+
+Values
+  - each CSS property must have a value
+  - each property has an initial value, used if nothing is declared and there is no inheritance
+  - all values are converted to px
+  - calculated based on the layout (screen size)
+  - browsers specify default root font size (usually 16px)
+  - order of precedence: specified, inherited, default
+  - 'inherited' value can be use to add inheritance
+  - 'initial' value can can be used to reset value to default
+
+  How relative values (e.g. %) are calculated to px
+    - % in fonts: measured relative to parents font-size; % x font-size of parent el
+    - % in length: measured relative to parents width; reference is always parent el width, % x width of parent
+    - em in fonts: reference is parent font-size
+    - em in length: reference is current el font-size, e.g. 1.5rem = 1.5 x curr el font-size
+    - rem (both in fonts and lengths): relevant to root font-size, e.g. 1.5 rem = 1.5 x 16px
+    - vh: 1vh is 1% of viewport height
+    - vw: 1vw is 1% of viewport width
+
+Inheritance
+  - usually properties related to text are inherited (font-size, line-height, color, font-family)
+  - what gets inherited in the computed value, and not the declared value; i.e. inherited values are 
+    already conputed! (instead of inheriting 120%, the computed value of 120% is inherited, while 120% 
+    is calculated in the parent el, not the el that inherited the value)
+  - 'inherited' value can be use to add inheritance
+
+Visual Formating Model
+  - algorithm that calculates boxes and determines their layout on the page (dimensions,
+  type (inline/block/inline-block), position (floats, absolute position)...)
+
+  Box Model
+    - applies to block level boxes
+    - each el can be seen as a box
+    - content + padding + border + margin
+    - fill area (includes everything inside border), gets filled with bg-color or bg-img
+    - box width = left border + left padding + specified width + right padding + right border
+    - box-sizing: border-box changes the above setting to:
+      - paddings and borders are NOT added to the defined dimensions of the box
+      - box widht = specified width
+  Box Types
+    - inline, block, inline-block
+    - block
+      - display: block
+      - display: flex/table/list-item also produce block level el
+      - occupies as much space as possible (usually whole line)
+    - inline
+      - display: inline
+      - no height or width property
+      - paddings and margins exist only on left and right side
+      - takes the minimum space required for its content
+    - inline-blcok
+      - display: inline-block
+      - inline el that work as block level el
+    Positioning
+      - normal flow / floats / absolute positioning
+      - normal flows
+        - what happens to el by default
+      - floats
+        - el is removed from its natural flow and shifted to left/right as far
+          as possible, until it touches edge of containing box (or another float el)
+        - inline elements will wrap around the floated el
+        - container will not adjust its height to the floated el (sometimes can be
+          problematic; solution is to use clear-fixes)
+      - absolute / fixed
+        - el is taken out of the normal flow
+        - el does not 'communicate' with other el outside of it
+        - absolute is positioned relative to first parent el with display:relative
+        - fixed is positioned relative to root el
+    Stacking context
+      - layers of content
+      - z-index
+      - there are other propeties as alternative to z-index (e.g. opacity)
+
+CSS Architecture
+
+Think -> Build -> Architect
+  - mindset
+  - think about layout before writing code
+  - build layout in HTML & CSS with consistent structure for naming classes (e.g. BEM)
+  - create logical architecture for CSS with files and folders
+
+Component driven design
+  - divide page into modular reusable components
+  - components building blocks for UI
+  - components are held together by layout
+  - components are reusable across projects
+  - components are usually independant
+  
+BEM
+  - every el is a class (low specificity -> clean and scalable code)
+  - block__element--modifier
+  - block: stand-alone component that is meaningful on its own; possibly reusable
+  - element: part of block, has no standalone meaning
+  - modifier: different verison of block or element (e.g. .btn--white)
+  - e.g. <a class="recepie__btn btn btn--round"></a>
+
+Architecture
+  - logical files and folders structure
+  - 7-1, it css, smacks, etc.
+  - 7-1 pattern:
+    - 1 main sass file to import all other files to
+    - 7 folders:
+      - base: basic project definitions
+      - components: 1 file per reusable component
+      - layout: website layout
+      - pages: page specific styles
+      - themes: e.g. dark/light mode
+      - abstracts: code that doesn't output css (e.g. variables) 
+      - vendors: third-party CSS
+
+Sass
+  - compiler
+  - gives us: variables, nesting, operators, partials, 
+    imports, mixins, functions, extends, control directives (conditionals and loops)
+  - 2 syntaxes: sass, scss
+  - variables: $color-primary: #eee; color: $color-primary
+  - functions: darken($color-white, 50%), lighten($color-gray-dark, 15%)
+  - mixin: container for code that can be reused
+    - @mixin myMixinName { }
+    - @include mxMixinName;
+    - mixins can accept arguments!
+      - @mixin style-text($color) { color: $color; font-size: 22rem }
+    - functions
+      - build-in functions, e.g. darken(), lighten()
+      - @function divide($a, $b) {
+          @return $a / $b;
+        }
+      - @divide(60, 2) * 1px; // this will return 30px instead of 30
+  - extend: we write a placeholder with styles in it and have another selector extend that placeholder
+    - %btn-placeholder { }
+    - @extend %btn-placeholder;
+    - as opposed to mixin, the code is not copied inside selectors where mixing is called,
+    - the selectors where extend is called are coppied to the code in the extend
+    - you should only ever use extend if the selectors (to which tge ruels are extended) are thematically related,
+      e.g. you use it inside .btn-lg and .btn-sm
+    - othervise it's better to use mixins (for mainainability)
+*/
