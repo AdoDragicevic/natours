@@ -1,0 +1,208 @@
+.card {
+  // CARD ROTATION
+
+  // perspective makes it look like its turning towards you; defined on the parent el of turning el
+  perspective: 150rem; // the lower the value, the more extreme perspective
+  -moz-perspective: 150rem;  
+  position: relative;
+  
+  height: 52rem; // read the coment above height in &__side (this is the parent el)
+ 
+  // card has front side and back side
+  &__side {
+    border-radius: 3px;
+    overflow: hidden; // othervise img overflows the parent (the edges)
+
+    box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
+
+     // with complex animation a goot idea is to slow down transition (e.g. 8s) to test how it really works
+     transition: all .8s ease;
+
+    // when all the child el are floated or positioned absolute, the parent el hight collapses to 0 
+    // however, with position absolute there is no clear-fix solution. So we give parent el the desired height
+    height: 52rem;
+    
+    // both sides are placed one on top of other
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    // after position absolute el starts taking up only their width
+    width: 100%;
+
+    // hides the back of an element
+    // othervise you rotate the el and still see its content backwards
+    backface-visibility: hidden;
+
+    &--front {
+      background-color: $color-white;
+    }
+
+    &--back {
+      // back side is already rotated by 180deg by default
+      transform: rotateY(180deg);
+
+      &-1 {
+        background-image: linear-gradient(to right bottom, $color-secondary-light, $color-secondary-dark);
+      }
+
+      &-2 {
+        background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
+      }
+
+      &-3 {
+        background-image: linear-gradient(to right bottom, $color-tertiary-light, $color-tertiary-dark);
+      }
+    }
+
+
+  }
+
+  // when we hover card transform card__side--front
+  &:hover &__side--front {
+    // rotate 180deg (half the circle) across Y axix
+    transform: rotateY(-180deg);
+  }
+  
+  &:hover &__side--back {
+    // rotate 180deg (half the circle) across Y axix
+    transform: rotateY(0);
+  }
+
+
+
+  // FRONT SIDE STYLING
+  &__picture {
+    background-size: cover;
+    height: 23rem;
+    
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%); // we can use different options, e.g. circle or ellipse
+
+    // card has border-radius:3px and overflow:hidden. However, in some browsers overflow:hidden is not applied when
+    // we use clip-path on child. So we can manually set it here:
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+
+    // if we have 2 bg, first covers the second; unless if first has low opacity, second is not seen; 
+    // this property modifies how 2 bg overlap
+    background-blend-mode: screen; // color, color-burn, color-dodge, darken, lighten, difference, exclusion, hard-light, hue...
+
+    &--1 {
+      background-image: linear-gradient(
+        to right bottom, 
+        $color-secondary-light, 
+        $color-secondary-dark), 
+      url(../img/nat-5.jpg);
+    }
+
+    &--2 {
+      background-image: linear-gradient(
+        to right bottom, 
+        $color-primary-light, 
+        $color-primary-dark), 
+      url(../img/nat-6.jpg);
+    }
+
+    &--3 {
+      background-image: linear-gradient(
+        to right bottom, 
+        $color-tertiary-light, 
+        $color-tertiary-dark), 
+      url(../img/nat-7.jpg);
+    }
+
+  }
+
+  &__heading {
+    font-size: 2.8rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    color: $color-white;
+    position: absolute;
+    top: 12rem;
+    right: 2rem;
+    text-align: end;
+    width: 75%;
+  }
+
+  // you could nest this into &__heading, but its not really its modifier or child
+  &__heading-span {
+    padding: 1rem 1.5rem;
+    -webkit-box-decoration-break: clone; // webkit goes above
+    box-decoration-break: clone; // on linebreak el is treated like 2 el (e.g. in terms of padding)
+
+    &--1 {
+      background-image: linear-gradient(
+        to right bottom, 
+        rgba($color-secondary-light, .85), 
+        rgba($color-secondary-dark, .85)
+      );
+    }
+
+    &--2 {
+      background-image: linear-gradient(
+        to right bottom, 
+        rgba($color-primary-light, .85), 
+        rgba($color-primary-dark, .85)
+      );
+    }
+
+    &--3 {
+      background-image: linear-gradient(
+        to right bottom, 
+        rgba($color-tertiary-light, .85), 
+        rgba($color-tertiary-dark, .85)
+      );
+    }
+  }
+
+  &__details {
+    padding: 3rem;
+
+    ul {
+      list-style: none;
+      width: 80%;
+
+      // simplest way to center block el inside a block el
+      margin: 0 auto;
+
+      li {
+        text-align: center;
+        font-size: 1.5rem;
+        padding: 1rem;
+
+        &:not(:last-child) {
+          border-bottom: 1px solid $color-gray-light-2;
+        }
+      }
+    }
+  }
+
+
+  // BACK SIDE STYLING
+
+  &__cta {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    text-align: center;
+  }
+
+  &__price-box {
+    color: $color-white;
+    margin-bottom: 8rem;
+  }
+
+  &__price-only {
+    font-size: 1.4rem;
+    text-transform: uppercase;
+  }
+
+  &__price-value {
+    font-size: 6rem;
+    font-weight: 100;
+  }
+
+}

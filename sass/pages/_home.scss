@@ -21,3 +21,9 @@
     transform: skewY(7deg); // step2: transform:skewY(7deg) on its direct children
   }
 }
+
+.section-tours {
+  background-color: $color-gray-light-1;
+  padding: 25rem 0 15rem 0;
+  margin-top: -10rem;
+}

@@ -18,7 +18,7 @@
     /* box-shadow: offsetX, offsetY, blure, color */
     box-shadow: 0 1rem 2rem rgba($color-black, .2);
 
-    /* when we hove the btn apply styles to ::after pseudoelement */
+    /* when we hover the btn apply styles to ::after pseudoelement */
     &::after {
       /* we will put transition property on the initial state, and that is .btn::after */
       transform: scaleX(1.4) scaleY(1.6);
@@ -29,6 +29,24 @@
   &:active {
     transform: translateY(-1px);
     box-shadow: 0 .5rem 1rem rgba($color-black, .2);
+  }
+
+  &--white {
+    background-color: $color-white;
+    color: $color-gray-dark;
+
+    &::after {
+      background-color: $color-white;
+    }
+  }
+
+  &--green {
+    background-color: $color-primary;
+    color: $color-white;
+
+    &::after {
+      background-color: $color-primary;
+    }
   }
   
   /* add virtual el after the el we selected */
@@ -46,15 +64,6 @@
     left: 0;
     z-index: -1;
     transition: all .4s;
-  }
-
-  &--white {
-    background-color: $color-white;
-    color: $color-gray-dark;
-
-    &::after {
-      background-color: $color-white;
-    }
   }
   
   /* only one btn has this animation, so instead of adding the property to .btn or .btn-white, we added a new class */
