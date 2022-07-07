@@ -1,0 +1,46 @@
+body {
+  color: $color-gray-dark;
+  /* set global font properties in body, because font properties are inherited from parent to child el */
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  /* 1.7 x bigger than the predefined line-height */
+  line-height: 1.7;
+}
+
+.heading-primary {
+  color: $color-white;
+  text-transform: uppercase;
+  margin-bottom: 6rem;
+  /* 
+    animation fix
+    sometimes animations introduce a little 'bug', e.g. shaking
+    no one knows why this is
+    we solve it by adding backface-visibility to parent el
+  */
+  backface-visibility: hidden;
+
+  &--main {
+    display: block;
+    font-size: 6rem;
+    font-weight: 400;
+    letter-spacing: 3.5rem;
+    margin-right: -3.5rem;
+    /* only two properties required for animation to work */
+    animation-name: moveInLeft;
+    animation-duration: 1s;
+    /* optional properties */
+    animation-delay: 0;
+    animation-iteration-count: 1; /* num of times animation happens */
+    animation-timing-function: ease-out;  /* value can be a cubic-besier fn */
+  }
+  
+  &--sub {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1.75rem;
+    margin-right: -1.75rem;
+    /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+    animation: moveInRight 1s ease-in-out;
+  }
+}

@@ -1,0 +1,11 @@
+.row {
+  /* max-width is usually much better choice than width (generally in most cases) */
+  max-width: $grid-width;
+  background-color: #eee;
+  margin: 0 auto;
+  
+  /* select everything except last child */
+  &:not(:last-child) {
+    margin-bottom: $gutter-vertical;
+  }
+}

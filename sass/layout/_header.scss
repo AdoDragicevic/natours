@@ -1,0 +1,52 @@
+.header {
+  position: relative;
+  height: 95vh;
+  /* we basically have 2 bg imgs, first bg img is on top of the second */
+  /* first optional arg in linear-gradient is location ('to right', 'to bottom right') */
+  background-image: 
+    linear-gradient(
+      to right bottom, 
+      rgba($color-primary-light, .8), 
+      rgba($color-primary-dark, .8)
+    ), 
+    url("../img/hero.jpg");
+  /* cover always tries to fit the img inside the box */
+  background-size: cover;
+  /* top ensures that no matter the viewport size, the top of the img stays at the top*/
+  background-position: top;
+  /* polygon(x y, x y, x y, x y) */
+  /* website for generating: https://bennettfeely.com/clippy/ */
+  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+
+  &__logo-box {
+    /* 
+      reference from which el with position:absolute counts top/left/right/bottom
+      is the first parent el with position:relative
+    */
+    position: absolute;
+    top: 4rem;
+    left: 4rem;
+  }
+
+  /*
+    animating .logo (img) doesn't work; if we do it like this it works fine
+    .logo-box:hover .logo {
+      animation: moveInRight 0.6s ease-in;
+    }
+  */
+  
+  &__logo {
+    height: 3.5rem;
+  }
+
+  &__text-box {
+    /* best way to center something (top would be 50%) */
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* all inline el are treated as text; text-align will affect them */
+    text-align: center;
+  }
+
+}

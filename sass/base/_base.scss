@@ -1,0 +1,41 @@
+/* basic reset */
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  /* we set box-sizing as inherit, and we define its value in body */
+  /* defining it in body, and setting inherit here is a slightly better practice
+     since it allows us to set different box-sizing in one part of our code (e.g.
+     in one section and it will be inherited by child el in that section)
+  */
+  box-sizing: inherit;
+}
+
+/* html selector could be moved to typography file; however, since it defines the base rule for font-size on
+   entire project, it is also valid to leave it here
+*/
+html {
+  /* 
+    it's good practice to use rem (throughout CSS); if we want to change font-size on our website (e.g. on mobile) 
+    we can change the root font-size in body, instead of adding hundreds media queries
+  */
+  /*
+    we want 1 rem to equal 10px, to make our lives easier (it is easier to calculate that 24rem is 240px,
+    than it is that 24rem is 24 x 16px
+  */
+  /*
+    to allow users to change the root font-size in the browser, we define 10% as % of 16px (default font-size in most
+    browsers), instead of hardcoding it to 10px
+    100% = 16%
+    10/16 = 62.5
+    62.5% = 10%  
+  */
+  font-size: 62.5%;
+}
+
+body {
+  padding: 3rem;
+  /* padding & border are not added to el width & hight */
+  box-sizing: border-box;
+}
