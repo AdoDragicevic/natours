@@ -1,7 +1,6 @@
 .row {
   /* max-width is usually much better choice than width */
   max-width: $grid-width;
-  background-color: #eee;
   margin: 0 auto;
   
   /* select everything except last row */
@@ -20,7 +19,6 @@
   */
 
   [class^="col-"] { // select elements whose class starts with "col-"
-    background-color: orangered;
     float: left;
 
     &:not(:last-child) {
