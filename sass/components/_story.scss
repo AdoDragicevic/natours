@@ -1,0 +1,87 @@
+.story {
+  width: 75%;
+  margin: 0 auto;
+  box-shadow: 0 3rem 6rem rgba($color-black, .1);
+  background-color: rgba($color-white, .6); 
+  border-radius: 3px;
+  padding: 6rem;
+  padding-left: 9rem; // because &__shape is translatedX for -3rem
+  font-size: $default-font-size;
+
+  // Give rectangular design
+  transform: skewX(-12deg);
+  // direct child selector and skew children to 0
+  // & > * { 
+    // transform: skewX(12deg); 
+  // }
+  // however, here it's not enough, because 1 child el has a transofrm. It's impossible to add 2 transforms to 1 el,
+  // so we add it below (&__shape now has 1 transform with 2 properties). We also added skewX to &__text (we could have
+  // just left it here instead)
+
+
+  &__shape {
+    // define where the content flows around this el:
+    // a) define width & height
+    width: 15rem;
+    height: 15rem;
+    // b) float
+    float: left;
+    // c) works even if el is not circular
+    shape-outside: circle(50% at 50% 50%); // circle(radius - 50% of parent el, at location of circles center)
+
+    // not mandatory
+    clip-path: circle(50% at 50% 50%); // makes el circle
+
+    // best way to move a floated el is with transform:translate (better than margin or padding)
+    transform: translateX(-3rem) skewX(12deg);
+
+    position: relative;
+
+    // fix potential glitches when child el transformed:
+    backface-visibility: hidden; // fixed text glitch!
+    overflow: hidden; // fixed img glitch!
+  }
+
+  &__img {
+    height: 100%;
+    transform: translateX(-4rem) scale(1.4);
+    transition: all .5s;
+
+    // add to fix potential glitches in el that is transformed
+    backface-visibility: hidden;
+    
+  }
+
+  &:hover &__img {
+    transform: translateX(-4rem) scale(1);
+
+    // use filter on img
+    filter: blur(3px) brightness(80%);
+  }
+
+  &__text {
+    transform: skewX(12deg);
+  }
+
+  &__caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color: $color-white;
+    text-transform: uppercase;
+    font-size: 1.7rem;
+    text-align: center;
+    opacity: 0;
+    transition: all .5s;
+
+    // add to fix potential glitches in el that is transformed
+    backface-visibility: hidden;
+  }
+
+  &:hover &__caption {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+
+}

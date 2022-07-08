@@ -1,0 +1,21 @@
+.bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  opacity: .15;
+  overflow: hidden;
+
+  &__content {
+    // similar to background-size; object-fit doesn't work with bg set in css, it works with html el
+    // object-fit:cover ->el fills entire parent, while mantaining its aspect ratio (extras are cut off)
+    // object-fit:fit -> el fills entire parent, while not mantaining its aspect ratio (everything is squished in)
+    // object-fit:contain -> el fills parent, without clipping anythin on the side (might not fill it fully)
+    object-fit: cover;
+    // height and width are required for object-fit
+    height: 100%;
+    width: 100%;
+  }
+}
