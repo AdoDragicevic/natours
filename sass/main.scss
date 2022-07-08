@@ -14,6 +14,7 @@
 @import "./components/card";
 @import "./components/story";
 @import "./components/bg-video";
+@import "./components/form";
 
 @import "./layout/grid";
 @import "./layout/footer";
@@ -165,6 +166,12 @@ Architecture
       - themes: e.g. dark/light mode
       - abstracts: code that doesn't output css (e.g. variables) 
       - vendors: third-party CSS
+
+Pseudo class
+- state of element, e.g.: :visited, :link, :hover
+
+Pseudo element
+- something on the page, e.g.: ::before, ::after, ::webkit-input-placeholder
 
 Sass
   - compiler

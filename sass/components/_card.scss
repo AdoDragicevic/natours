@@ -15,17 +15,17 @@
 
     box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
 
-     // with complex animation a goot idea is to slow down transition (e.g. 8s) to test how it really works
-     transition: all .8s ease;
+    // with complex animation a goot idea is to slow down transition (e.g. 8s) to test how it really works
+    transition: all .8s ease;
 
-    // when all the child el are floated or positioned absolute, the parent el hight collapses to 0 
-    // however, with position absolute there is no clear-fix solution. So we give parent el the desired height
-    height: 52rem;
-    
     // both sides are placed one on top of other
     position: absolute;
     top: 0;
     left: 0;
+
+    // when all the child el are floated or positioned absolute, the parent el hight collapses to 0 
+    // however, with position absolute there is no clear-fix solution. So we give parent el the desired height
+    height: 52rem;
 
     // after position absolute el starts taking up only their width
     width: 100%;

@@ -1,0 +1,110 @@
+.form {
+
+  &__group:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+
+  &__input {
+    font-size: 1.5rem;
+    padding: 1.5rem 2rem;
+    border-radius: 2px;
+    background-color: rgba($color-white, .5);
+    border: none;
+    border-bottom: 3px solid transparent;
+    width: 90%;
+    display: block;
+    transition: all .3s;
+
+    // inputs get their own default styling, so we overwrite it:
+    font-family: inherit;
+    color: inherit;
+
+    &::-webkit-input-placeholder { // only works on new browsers
+      color: $color-gray-dark-2;
+    }
+
+    &:focus {
+      // foc accesibility reasons you should never make the :focus completelly not visible!
+      outline: none;
+      box-shadow: 0 1rem 2rem rgba($color-black, .1);
+      border-bottom: 3px solid $color-primary;
+    }
+
+    // we want to apply validation logic only when the field is focused
+    &:focus:invalid {
+      border-bottom: 3px solid $color-secondary-dark;
+    }
+
+    // &:focus:valid {}
+  }
+
+  &__label {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-left: 2rem;
+    margin-top: .7rem;
+    display: block;
+    transition: all .3s;
+  }
+
+  // sibling selectors:
+  // + adjacent sibling (comes emidiatelly after; first sibling)
+  // ~ general sibling (any sibling)
+  // mandatory requirement for sibling selector is that in html lable is placed AFTER the input
+  &__input:placeholder-shown + &__label {
+    opacity: 0;
+    visibility: hidden; // cannot animate visibility, so we also use opacity
+    transform: translateY(-4rem);
+  }
+
+  // in css it's impossible to style radio input; we can hide it and style the label
+  &__radio-group {
+    width: 49%;
+    display: inline-block;
+  }
+
+  &__radio-label {
+    font-size: $default-font-size;
+    cursor: pointer;
+    position: relative;
+    padding-left: 4rem;
+  }
+
+  &__radio-button {
+    height: 3rem;
+    width: 3rem;
+    border: 5px solid $color-primary;
+    border-radius: 50%;
+    display: inline-block;
+    position: absolute;
+    top: -.4rem;
+    left: 0;
+
+    &::after {
+      content: "";
+      display: block;
+      height: 1.3rem;
+      width: 1.3rem;
+      background-color: $color-primary;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity .2s;
+
+      // position absolute is relative to the first parent el with defined position (that position doesn't have to be relative)
+      position: absolute;
+    }
+  }
+
+  // we select the sibling and then its child
+  &__radio-input:checked + &__radio-label &__radio-button::after {
+    opacity: 1;
+  }
+
+  &__radio-input {
+    visibility: hidden;
+  }
+
+}
