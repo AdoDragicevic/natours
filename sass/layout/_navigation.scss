@@ -1,0 +1,179 @@
+// .navigation is just a container div
+.navigation {
+
+  &__checkbox {
+    display: none;
+  }
+
+  // when checkbox is checked, select its first brother and then its child
+  &__checkbox:checked + &__button &__icon {
+    // easy way to make el transparent; here its important because of ::before & ::after that should not be affected
+    // if we were to set opacity:0 then ::before & ::after would also get that opacity
+    background-color: transparent;
+  }
+
+  &__checkbox:checked + &__button &__icon::before {
+    top: 0;
+    transform: rotate(135deg);
+    // we can set transform-origin on the el we're transforming (&__icon::before), e.g. center of rotation; default is center
+  }
+
+  &__checkbox:checked + &__button &__icon::after {
+    top: 0;
+    transform: rotate(-135deg);
+  }
+
+  // &__button is the html label el
+  &__button {
+    background-color: $color-white;
+    height: 7rem;
+    width: 7rem;
+    border-radius: 50%;
+    position: fixed;
+    top: 6rem;
+    right: 6rem;
+    z-index: 2000;
+    box-shadow: 0 1rem 3rem rgba($color-black, .1);
+    text-align: center;
+    cursor: pointer;
+    transition: all .2s;
+  }
+
+  &__button:hover &__icon::before {
+    top: -1rem;
+    height: 1.5px; // added height here to fix the "browser bug" that makes ::before & ::after height larger on hover
+  }
+
+  &__button:hover &__icon::after {
+    top: 1rem;
+    height: 1.5px;
+  } 
+
+  &__icon {
+    position: relative;
+    margin-top: 3.5rem;
+
+    &,
+    &::before,
+    &::after {
+      width: 3rem;
+      height: 2px;
+      background-color: $color-gray-dark-3;
+      display: inline-block;
+    }
+
+    &::before,
+    &::after {
+      content: "";
+
+      // transition is added to the el we want to transition
+      // we can add it to ::before & ::after, and not to the root el
+      transition: all .2s;
+
+      // parent of ::before and ::after is el they were created from (&__icon)!
+      position: absolute;
+      left: 0;
+    }
+
+    &::before {
+      top: -.8rem;
+    }
+
+    &::after {
+      top: .8rem;
+    }
+  }
+
+  &__background {
+    height: 6rem;
+    width: 6rem;
+    border-radius: 50%;
+    background-color: $color-primary;
+    position: fixed;
+    top: 6.5rem;
+    right: 6.5rem;
+    z-index: 1000; // z-index works only on el that has its position defined
+    
+    // customize animation transition
+    // specifies how much a change occures over time; called easing functions; easings.net; cubic-bezier.net
+    transition: transform .8s cubic-bezier(0.86, 0, 0.07, 1);
+
+    // alternative to linear gradient
+    // linear gradient goes from one side to another
+    // radial gradient goes from the center
+    background-image: radial-gradient($color-primary-light, $color-primary-dark);
+  }
+
+  &__checkbox:checked ~ &__background {
+    transform: scale(80);
+  }
+
+  &__nav {
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    // defining left or right determines from which side width transition will apply
+    left: 0;
+    z-index: 1500;
+    opacity: 0;
+    transform: translateX(-50vw);
+    width: 100%;
+
+    // with cubic-bezier you can do a lot of things people usually use transform for, e.g.;
+    // 0px -> 10px -> 12px -> 10px movement
+    transition: transform .8s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity .4s ease-in;
+  }
+
+  &__checkbox:checked ~ &__nav {
+    opacity: 1;
+    transform: translate(0);
+  }
+
+  &__list {
+    list-style: none;
+    text-align: center;
+    @include position-absolute-center;
+  }
+
+  &__item {
+    margin: 1rem;
+  }
+
+  &__link {
+
+    &:link,
+    &:visited {
+      font-size: 3rem;
+      font-weight: 300;
+      padding: 1rem 2rem;
+      color: $color-white;
+      text-transform: uppercase;
+      text-decoration: none;
+      
+      // sliding animation
+      display: inline-block;
+      background-image: linear-gradient(
+        120deg,
+        transparent 0%,
+        transparent 50%,
+        $color-white 50%
+      );
+      background-size: 220%;
+      transition: all .4s;
+    }
+
+    &:hover,
+    &:active {
+      // sliding animation
+      background-position: 100%; 
+      color: $color-primary;
+      transform: translateX(1rem);    
+    }
+
+    span {
+      margin-right: 1.5rem;
+      display: inline-block;
+    }
+  }
+
+}
