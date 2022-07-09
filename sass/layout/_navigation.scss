@@ -116,12 +116,12 @@
     left: 0;
     z-index: 1500;
     opacity: 0;
-    transform: translateX(-50vw);
+    transform: translateX(-100vw);
     width: 100%;
 
     // with cubic-bezier you can do a lot of things people usually use transform for, e.g.;
     // 0px -> 10px -> 12px -> 10px movement
-    transition: transform .8s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity .4s ease-in;
+    transition: all .8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 
   &__checkbox:checked ~ &__nav {
