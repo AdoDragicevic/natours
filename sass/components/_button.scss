@@ -30,8 +30,8 @@
     }
   }
   
-  &:active,
-  &:focus {
+  // i removed the focus selector here (button now pops back up after clik, and is outlined when selected with keyboard)
+  &:active {
     outline: none;
     transform: translateY(-1px);
     box-shadow: 0 .5rem 1rem rgba($color-black, .2);
