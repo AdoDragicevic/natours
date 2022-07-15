@@ -1,6 +1,6 @@
 .header {
   position: relative;
-  height: 95vh;
+  height: 85vh;
   /* we basically have 2 bg imgs, first bg img is on top of the second */
   /* first optional arg in linear-gradient is location ('to right', 'to bottom right') */
   background-image: 
@@ -9,19 +9,45 @@
       rgba($color-primary-light, .8), 
       rgba($color-primary-dark, .8)
     ), 
-    url("../img/hero.jpg");
+    url("../img/hero-small.jpg");
   /* cover always tries to fit the img inside the box */
   background-size: cover;
   /* top ensures that no matter the viewport size, the top of the img stays at the top*/
   background-position: top;
-  /* polygon(x y, x y, x y, x y) */
-  /* website for generating: https://bennettfeely.com/clippy/ */
-  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+
+  // if browser supports this property
+  @supports( clip-path: polygon(0 0) ) {
+
+    /* polygon(x y, x y, x y, x y) */
+    /* website for generating: https://bennettfeely.com/clippy/ */
+    clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+
+    height: 95vh;
+  }
+
+  @include respond(phone) {
+    clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+  }
+
+  // RESPONSIVE IMGS
+  // typ: add linear gradient over img to easily check if img is changing on screen-size/resolution change in dev tools
+  // ',' between conditions has the meaning of 'or' / '|'
+  @media (min-resolution: 192dpi) and (min-width: 37.5em), 
+         (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.5em), // in firefox min-resolution is called differently
+         (min-width: 125em) {
+    background-image: 
+    linear-gradient(
+      to right bottom, 
+      rgba($color-primary-light, .8), 
+      rgba($color-primary-dark, .8)
+    ), 
+    url("../img/hero.jpg");
+  }
 
   &__logo-box {
     /* 
       reference from which el with position:absolute counts top/left/right/bottom
-      is the first parent el with position:relative
+      is the first parent el with set position (relative/fixed/absolute)
     */
     position: absolute;
     top: 4rem;

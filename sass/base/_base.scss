@@ -31,11 +31,30 @@ html {
     10/16 = 62.5
     62.5% = 10%  
   */
-  font-size: 62.5%;
+  font-size: 62.5%;  // 1rem = 10px
+
+  @include respond(tab-land) {
+    font-size: 56.25%; // 9px
+  }
+
+  // first we decide how much 1rem should be. E.g. default is 10px, and we want it to be 8px on this width.
+  // then do the below calculation
+  @include respond(tab-port) {
+    font-size: 50%; // 1rem = 8px; 8/16 = 50% | .8*16 = 50% 
+  }
+
+  @include respond(big-desktop) {
+    font-size: 75%; // 12px; 12/16 = 75%
+  }
 }
 
 body {
-  padding: 3rem;
   /* padding & border are not added to el width & hight */
   box-sizing: border-box;
+
+  padding: 3rem;
+
+  @include respond(tab-port) {
+    padding: 0;
+  }
 }

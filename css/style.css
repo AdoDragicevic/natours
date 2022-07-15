@@ -1,3 +1,10 @@
+/* simplified version
+@mixin respond-phone {
+  @media screen and (max-width: $phone-vidth-variable | 600px) {
+    @content; // @content allows us to pass a block of code inside the mixin
+  }
+}
+*/
 /* basic reset */
 *,
 *::after,
@@ -31,11 +38,23 @@ html {
     62.5% = 10%  
   */
   font-size: 62.5%; }
+  @media screen and (max-width: 75em) {
+    html {
+      font-size: 56.25%; } }
+  @media screen and (max-width: 56.25em) {
+    html {
+      font-size: 50%; } }
+  @media screen and (min-width: 112.5em) {
+    html {
+      font-size: 75%; } }
 
 body {
-  padding: 3rem;
   /* padding & border are not added to el width & hight */
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  padding: 3rem; }
+  @media screen and (max-width: 56.25em) {
+    body {
+      padding: 0; } }
 
 /*
 Two types of animations in css:
@@ -113,6 +132,10 @@ body {
     /* num of times animation happens */
     animation-timing-function: ease-out;
     /* value can be a cubic-besier fn */ }
+    @media screen and (max-width: 37.5em) {
+      .heading-primary--main {
+        letter-spacing: 1rem;
+        font-size: 5rem; } }
   .heading-primary--sub {
     display: block;
     font-size: 2rem;
@@ -121,6 +144,9 @@ body {
     margin-right: -1.75rem;
     /* animation: name duration timing-function delay iteration-count direction fill-mode; */
     animation: moveInRight 1s ease-in-out; }
+    @media screen and (max-width: 37.5em) {
+      .heading-primary--sub {
+        letter-spacing: .5rem; } }
 
 .heading-secondary {
   font-size: 3.5rem;
@@ -133,6 +159,12 @@ body {
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent; }
+  @media screen and (max-width: 56.25em) {
+    .heading-secondary {
+      font-size: 3rem; } }
+  @media screen and (max-width: 37.5em) {
+    .heading-secondary {
+      font-size: 2.5rem; } }
   .heading-secondary:hover {
     transform: skewY(2deg) skewX(15deg) scale(1.1);
     text-shadow: 0.5rem 1rem 2rem rgba(0, 0, 0, 0.2); }
@@ -155,9 +187,15 @@ body {
 
 .u-margin-bottom-medium {
   margin-bottom: 4rem !important; }
+  @media screen and (max-width: 56.25em) {
+    .u-margin-bottom-medium {
+      margin-bottom: 3rem !important; } }
 
 .u-margin-bottom-big {
   margin-bottom: 8rem !important; }
+  @media screen and (max-width: 56.25em) {
+    .u-margin-bottom-big {
+      margin-bottom: 5rem !important; } }
 
 .u-margin-top-big {
   margin-top: 8rem !important; }
@@ -256,15 +294,35 @@ body {
     z-index: 1;
     transition: all .2s, border-radius 1ms;
     outline-offset: 2rem; }
+    @media screen and (max-width: 56.25em) {
+      .composition__photo {
+        position: relative;
+        float: left;
+        width: 33.3333%;
+        box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.2); } }
     .composition__photo--p1 {
       left: 0;
       top: -2rem; }
+      @media screen and (max-width: 56.25em) {
+        .composition__photo--p1 {
+          top: 0;
+          transform: scale(1.2); } }
     .composition__photo--p2 {
       right: 0;
       top: 2rem; }
+      @media screen and (max-width: 56.25em) {
+        .composition__photo--p2 {
+          top: -1rem;
+          transform: scale(1.3);
+          z-index: 100; } }
     .composition__photo--p3 {
       left: 20%;
       top: 10rem; }
+      @media screen and (max-width: 56.25em) {
+        .composition__photo--p3 {
+          top: 1rem;
+          left: 0;
+          transform: scale(1.1); } }
     .composition__photo:hover {
       transform: scale(1.05) translateY(-0.5rem);
       box-shadow: 0 2.5rem 4rem rgba(0, 0, 0, 0.5);
@@ -282,6 +340,9 @@ body {
   border-radius: 3px;
   box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
   transition: transform .2s; }
+  @media screen and (max-width: 56.25em) {
+    .feature-box {
+      padding: 2rem; } }
   .feature-box__icon {
     font-size: 6rem;
     margin-bottom: .5rem;
@@ -291,6 +352,9 @@ body {
     -webkit-background-clip: text;
     color: transparent;
     padding: 0 1px; }
+    @media screen and (max-width: 56.25em) {
+      .feature-box__icon {
+        margin-bottom: 0; } }
   .feature-box:hover {
     transform: translateY(-1.5rem) scale(1.03); }
 
@@ -385,6 +449,36 @@ body {
   .card__price-value {
     font-size: 6rem;
     font-weight: 100; }
+  @media screen and (max-width: 56.25em) {
+    .card {
+      height: auto;
+      border-radius: 3px;
+      background-color: #fff;
+      box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15); }
+      .card__side {
+        position: relative;
+        height: auto;
+        box-shadow: none; }
+        .card__side--back {
+          transform: rotateY(0);
+          clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%); }
+      .card:hover .card__side--front {
+        transform: rotateY(0); }
+      .card:hover .card__side--back {
+        transform: rotateY(0); }
+      .card__details {
+        padding: 1rem 3rem; }
+      .card__cta {
+        position: relative;
+        top: 0;
+        left: 0;
+        transform: translate(0);
+        width: 100%;
+        padding: 7rem 4rem 4rem 4rem; }
+      .card__price-box {
+        margin-bottom: 3rem; }
+      .card__price-value {
+        font-size: 4rem; } }
 
 .story {
   width: 75%;
@@ -396,16 +490,30 @@ body {
   padding-left: 9rem;
   font-size: 1.6rem;
   transform: skewX(-12deg); }
+  @media screen and (max-width: 56.25em) {
+    .story {
+      width: 100%;
+      padding: 4rem;
+      padding-left: 7rem; } }
+  @media screen and (max-width: 37.5em) {
+    .story {
+      transform: skewX(0); } }
   .story__shape {
     width: 15rem;
     height: 15rem;
     float: left;
     shape-outside: circle(50% at 50% 50%);
-    clip-path: circle(50% at 50% 50%);
     transform: translateX(-3rem) skewX(12deg);
+    border-radius: 50%;
     position: relative;
     backface-visibility: hidden;
     overflow: hidden; }
+    @media screen and (max-width: 37.5em) {
+      .story__shape {
+        transform: translateX(-3rem) skewX(0); } }
+    @supports (clip-path: circle(50% at 50% 50%)) {
+      .story__shape {
+        clip-path: circle(50% at 50% 50%); } }
   .story__img {
     height: 100%;
     transform: translateX(-4rem) scale(1.4);
@@ -416,6 +524,9 @@ body {
     filter: blur(3px) brightness(80%); }
   .story__text {
     transform: skewX(12deg); }
+    @media screen and (max-width: 37.5em) {
+      .story__text {
+        transform: skewX(0); } }
   .story__caption {
     position: absolute;
     top: 50%;
@@ -461,6 +572,9 @@ body {
   transition: all .3s;
   font-family: inherit;
   color: inherit; }
+  @media screen and (max-width: 56.25em) {
+    .form__input {
+      width: 100%; } }
   .form__input::-webkit-input-placeholder {
     color: #999; }
   .form__input:focus {
@@ -486,6 +600,10 @@ body {
 .form__radio-group {
   width: 49%;
   display: inline-block; }
+  @media screen and (max-width: 56.25em) {
+    .form__radio-group {
+      width: 100%;
+      margin-bottom: 2rem; } }
 
 .form__radio-label {
   font-size: 1.6rem;
@@ -534,8 +652,15 @@ body {
     [class^="col"] // select elements with class that starts with "col"
     [class$="col"] // select elements with class that ends with "col"
   */ }
+  @media screen and (max-width: 56.25em) {
+    .row {
+      max-width: 50rem;
+      padding: 0 3rem; } }
   .row:not(:last-child) {
     margin-bottom: 8rem; }
+    @media screen and (max-width: 56.25em) {
+      .row:not(:last-child) {
+        margin-bottom: 6rem; } }
   .row::after {
     content: "";
     display: table;
@@ -544,6 +669,13 @@ body {
     float: left; }
     .row [class^="col-"]:not(:last-child) {
       margin-right: 6rem; }
+      @media screen and (max-width: 56.25em) {
+        .row [class^="col-"]:not(:last-child) {
+          margin-right: 0;
+          margin-bottom: 6rem; } }
+    @media screen and (max-width: 56.25em) {
+      .row [class^="col-"] {
+        width: 100% !important; } }
   .row .col-1-of-2 {
     width: calc( (100% - 6rem) / 2); }
   .row .col-1-of-3 {
@@ -562,15 +694,25 @@ body {
   color: #f7f7f7;
   padding: 10rem 0;
   font-size: 1.4rem; }
+  @media screen and (max-width: 56.25em) {
+    .footer {
+      padding: 8rem 0; } }
   .footer__logo-box {
     text-align: center;
     margin-bottom: 8rem; }
+    @media screen and (max-width: 56.25em) {
+      .footer__logo-box {
+        margin-bottom: 6rem; } }
   .footer__logo {
     width: 15rem; }
   .footer__navigation {
     border-top: 1px solid #777;
     padding-top: 2rem;
     display: inline-block; }
+    @media screen and (max-width: 56.25em) {
+      .footer__navigation {
+        width: 100%;
+        text-align: center; } }
   .footer__list {
     list-style: none; }
   .footer__list-item {
@@ -593,30 +735,44 @@ body {
     padding-top: 2rem;
     width: 80%;
     float: right; }
+    @media screen and (max-width: 56.25em) {
+      .footer__copyright {
+        width: 100%;
+        float: none;
+        text-align: justify; } }
 
 .header {
   position: relative;
-  height: 95vh;
+  height: 85vh;
   /* we basically have 2 bg imgs, first bg img is on top of the second */
   /* first optional arg in linear-gradient is location ('to right', 'to bottom right') */
-  background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url("../img/hero.jpg");
+  background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url("../img/hero-small.jpg");
   /* cover always tries to fit the img inside the box */
   background-size: cover;
   /* top ensures that no matter the viewport size, the top of the img stays at the top*/
   background-position: top;
-  /* polygon(x y, x y, x y, x y) */
-  /* website for generating: https://bennettfeely.com/clippy/ */
-  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
   /*
     animating .logo (img) doesn't work; if we do it like this it works fine
     .logo-box:hover .logo {
       animation: moveInRight 0.6s ease-in;
     }
   */ }
+  @supports (clip-path: polygon(0 0)) {
+    .header {
+      /* polygon(x y, x y, x y, x y) */
+      /* website for generating: https://bennettfeely.com/clippy/ */
+      clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+      height: 95vh; } }
+  @media screen and (max-width: 37.5em) {
+    .header {
+      clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%); } }
+  @media (min-resolution: 192dpi) and (min-width: 37.5em), (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.5em), (min-width: 125em) {
+    .header {
+      background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url("../img/hero.jpg"); } }
   .header__logo-box {
     /* 
       reference from which el with position:absolute counts top/left/right/bottom
-      is the first parent el with position:relative
+      is the first parent el with set position (relative/fixed/absolute)
     */
     position: absolute;
     top: 4rem;
@@ -659,6 +815,14 @@ body {
   text-align: center;
   cursor: pointer;
   transition: all .2s; }
+  @media screen and (max-width: 56.25em) {
+    .navigation__button {
+      top: 4rem;
+      right: 4rem; } }
+  @media screen and (max-width: 37.5em) {
+    .navigation__button {
+      top: 3rem;
+      right: 3rem; } }
 
 .navigation__button:hover .navigation__icon::before {
   top: -1rem;
@@ -697,6 +861,14 @@ body {
   z-index: 1000;
   transition: transform 0.8s cubic-bezier(0.86, 0, 0.07, 1);
   background-image: radial-gradient(#7ed56f, #28b485); }
+  @media screen and (max-width: 56.25em) {
+    .navigation__background {
+      top: 4.5rem;
+      right: 4.5rem; } }
+  @media screen and (max-width: 37.5em) {
+    .navigation__background {
+      top: 3.5rem;
+      right: 3.5rem; } }
 
 .navigation__checkbox:checked ~ .navigation__background {
   transform: scale(80); }
@@ -754,11 +926,15 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.8);
   z-index: 2000;
   transition: all .3s;
+  background-color: rgba(0, 0, 0, 0.8);
   opacity: 0;
   visibility: hidden; }
+  @supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+    .popup {
+      backdrop-filter: blur(10px);
+      background-color: rgba(0, 0, 0, 0.4); } }
   .popup:target {
     opacity: 1;
     visibility: visible; }
@@ -788,6 +964,10 @@ body {
     transform: translate(-50%, -50%) scale(0);
     transition: all .4s .2s;
     display: table; }
+    @media screen and (max-width: 75em) {
+      .popup__content {
+        width: 80%;
+        text-align: center; } }
   .popup:target .popup__content {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1); }
@@ -795,14 +975,39 @@ body {
     width: 33.3333%;
     display: table-cell;
     vertical-align: middle; }
+    @media screen and (max-width: 75em) {
+      .popup__left {
+        display: table-row;
+        width: 100%;
+        height: 10rem;
+        border: 1px solid red;
+        overflow: hidden; } }
   .popup__right {
     width: 66.66667%;
     padding: 3rem 5rem;
     display: table-cell;
     vertical-align: middle; }
+    @media screen and (max-width: 75em) {
+      .popup__right {
+        width: 100%;
+        padding: 1rem 3rem 2rem 3rem; } }
   .popup__img {
     display: block;
     width: 100%; }
+    @media screen and (max-width: 75em) {
+      .popup__img {
+        float: left;
+        width: 50%;
+        display: inline-block;
+        height: 20rem;
+        background-size: cover; } }
+    @media screen and (max-width: 37.5em) {
+      .popup__img {
+        display: none; }
+        .popup__img:last-child {
+          display: block;
+          width: 100%;
+          height: 25rem; } }
   .popup__text {
     font-size: 1.4rem;
     margin-bottom: 4rem;
@@ -810,11 +1015,17 @@ body {
     column-count: 2;
     column-gap: 4rem;
     column-rule: 1px solid #eee; }
+    @media screen and (max-width: 75em) {
+      .popup__text {
+        column-count: 1; } }
 
 .section-about {
   background-color: #f7f7f7;
   padding: 25rem 0;
   margin-top: -20vh; }
+  @media screen and (max-width: 56.25em) {
+    .section-about {
+      padding: 20rem 0; } }
 
 .section-features {
   padding: 20rem 0;
@@ -822,6 +1033,9 @@ body {
   background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.8), rgba(40, 180, 133, 0.8)), url("../img/nat-4.jpg");
   background-size: cover;
   transform: skewY(-7deg); }
+  @media screen and (max-width: 56.25em) {
+    .section-features {
+      padding: 10rem 0; } }
   .section-features > * {
     transform: skewY(7deg); }
 
@@ -829,23 +1043,44 @@ body {
   background-color: #f7f7f7;
   padding: 25rem 0 15rem 0;
   margin-top: -10rem; }
+  @media screen and (max-width: 56.25em) {
+    .section-tours {
+      padding: 20rem 0 10rem 0; } }
 
 .section-stories {
   padding: 15rem 0;
   position: relative; }
+  @media screen and (max-width: 56.25em) {
+    .section-stories {
+      padding: 10rem 0; } }
 
 .section-booking {
   padding: 15rem 0;
   background-image: linear-gradient(to right bottom, #7ed56f, #28b485); }
+  @media screen and (max-width: 56.25em) {
+    .section-booking {
+      padding: 10rem 0; } }
 
 .book {
   background-image: linear-gradient(105deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 50%, transparent 50%), url(../img/nat-10.jpg);
   background-size: cover;
   border-radius: 3px;
   box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.2); }
+  @media screen and (max-width: 75em) {
+    .book {
+      background-image: linear-gradient(105deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 65%, transparent 65%), url(../img/nat-10.jpg); } }
+  @media screen and (max-width: 56.25em) {
+    .book {
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%), url(../img/nat-10.jpg); } }
   .book__form {
     width: 50%;
     padding: 6rem; }
+    @media screen and (max-width: 75em) {
+      .book__form {
+        width: 65%; } }
+    @media screen and (max-width: 56.25em) {
+      .book__form {
+        width: 100%; } }
 
 /*
 About CSS
@@ -859,8 +1094,32 @@ Responsive design principles
   - fluid layouts
     - float, flexbox, css-grid
   - responsive units
-  - flexible imgs
   - media queries
+  - responsive images
+
+Responsive images
+  - 3 options:
+      1. Resolution switching 
+        - smaller imgs on smaller screens (same img, different size/resolution)
+      2. Density switching
+        - same as above, but instead of screen size we look fro pixel density
+        - e.g. phones with 400px screen width use 2px to show 1px, so we need an img of 800px for
+          400px width img
+        - pixel density is amout of px in a cm or inch (high vs low resolution screens; @2x vs @1x)
+      3. Art direction
+        - different img on different screen size
+        - when you don't want to share the same img, but a whole differen timg
+        - e.g. maybe cropped img or a whole different img
+  - tools:
+    1. srcset attribute on <img> and <sorce>
+    2. css media query
+    3. <picture>
+  - check the footer logo in HTML, the img composition component in HTML (about section), and header in SASS
+
+Graceful degradation
+  - using new css features for newer browsers, while providing simpler styling for older browsers
+  - https://caniuse.com/
+  - by using @supports in css
 
 How CSS works
   - CSS parsing has 2 steps:

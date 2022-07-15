@@ -105,9 +105,39 @@
         <div class="col-1-of-2">
           <!-- EMMET: .composition>(img.composition__photo.composition__photo-p$)*3 -->
           <div class="composition">
-            <img src="img/nat-1-large.jpg" alt="Picture 1" class="composition__photo composition__photo--p1">
-            <img src="img/nat-2-large.jpg" alt="Picture 2" class="composition__photo composition__photo--p2">
-            <img src="img/nat-3-large.jpg" alt="Picture 3" class="composition__photo composition__photo--p3">
+            
+            <!--
+              RESPONSIVE IMGS: Resolution Switching
+              we apply the width descriptor and broswer decides which img to pick
+              1. in srcset add all imgs and their widths (in px, expressed with 'w')
+              2. add sizes attribute, in it specify img width in certain media query
+                 specify img width in %; if img takes up 150px on max-width 800px we calculate 150/800
+                 last value in sizes is the default width applied if none of media queries apply
+              3. include src attribute for older browsers that don't include srcset!
+            -->
+            
+            <img 
+              srcset="img/nat-1-large.jpg 300w, img/nat-1-large.jpg 1000w" 
+              sizes="(max-width: 56.25em) 20vw, (max-width: 37.5em) 30vw, 300px"
+              src="img/nat-1-large.jpg"
+              alt="Picture 1" 
+              class="composition__photo composition__photo--p1"
+            >
+            <img 
+              srcset="img/nat-2-large.jpg 300w, img/nat-2-large.jpg 1000w" 
+              sizes="(max-width: 56.25em) 20vw, (max-width: 37.5em) 30vw, 300px" 
+              src="img/nat-2-large.jpg" 
+              alt="Picture 2" 
+              class="composition__photo composition__photo--p2"
+            >
+            <img 
+              srcset="img/nat-3-large.jpg 300w, img/nat-3-large.jpg 1000w" 
+              sizes="(max-width: 56.25em) 20vw, (max-width: 37.5em) 30vw, 300px"
+              src="img/nat-3-large.jpg" 
+              alt="Picture 3" 
+              class="composition__photo composition__photo--p3"
+            >
+          
           </div>
         </div>
       </div>
@@ -388,7 +418,43 @@
 
   <footer class="footer">
     <div class="footer__logo-box">
-      <img class="footer__logo" src="img/logo-green-2x.png" alt="Logo">
+      <!--
+        RESPONSIVE IMGS: Density Switching 
+        1. use srcset with 2 imgs and next to each img the density descriptor 
+        2. add src attribute for older browser that don't support srcset
+      
+        <img 
+          class="footer__logo" 
+          srcset="img/logo-green-1x.png 1x, img/logo-green-2x.png 2x" 
+          src="img/logo-green-2x.png"
+          alt="Logo"
+        >
+      -->
+
+      <!--
+        RESPONSIVE IMGS: Art Direction
+        1. specify multiple sources for 1 img, set media query inside html
+        2. specify img shown if media queries don't meet the conditions
+        3. add src attribute in img, for older browsers that don't support srcset
+        we can have multiple sources, and must have 1 fallback <img> inside <picture>
+        this solution is a mix of art direction and above described density switching
+        you can use art solution without density switching (use src instead of srcset), and density switching
+        without art direction (as described in example above)
+      -->
+
+      <picture>
+        <source 
+          srcset="img/logo-green-small-1x.png 1x, img/logo-green-small-2x.png 2x" 
+          media="(max-width: 37.5rem)"
+        >
+        <img 
+          class="footer__logo" 
+          srcset="img/logo-green-1x.png 1x, img/logo-green-2x.png 2x" 
+          src="img/logo-green-2x.png"
+          alt="Logo"
+        >
+      </picture>
+    
     </div>
     <div class="row">
       <div class="col-1-of-2">

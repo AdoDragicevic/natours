@@ -18,6 +18,15 @@
   // so we add it below (&__shape now has 1 transform with 2 properties). We also added skewX to &__text (we could have
   // just left it here instead)
 
+  @include respond(tab-port) {
+    width: 100%;
+    padding: 4rem;
+    padding-left: 7rem;
+  }
+
+  @include respond(phone) {
+    transform: skewX(0);
+  }
 
   &__shape {
     // define where the content flows around this el:
@@ -29,17 +38,28 @@
     // c) works even if el is not circular
     shape-outside: circle(50% at 50% 50%); // circle(radius - 50% of parent el, at location of circles center)
 
-    // not mandatory
-    clip-path: circle(50% at 50% 50%); // makes el circle
-
     // best way to move a floated el is with transform:translate (better than margin or padding)
     transform: translateX(-3rem) skewX(12deg);
+
+    border-radius: 50%;
 
     position: relative;
 
     // fix potential glitches when child el transformed:
     backface-visibility: hidden; // fixed text glitch!
     overflow: hidden; // fixed img glitch!
+
+    @include respond(phone) {
+      transform: translateX(-3rem) skewX(0);
+    }
+
+    @supports ( clip-path: circle(50% at 50% 50%) ) {
+
+      // not mandatory for defining where content flows
+      clip-path: circle(50% at 50% 50%); // makes el circle
+    
+    }
+
   }
 
   &__img {
@@ -61,6 +81,10 @@
 
   &__text {
     transform: skewX(12deg);
+
+    @include respond(phone) {
+      transform: skewX(0);
+    }
   }
 
   &__caption {

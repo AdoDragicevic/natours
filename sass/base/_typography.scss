@@ -32,6 +32,11 @@ body {
     animation-delay: 0;
     animation-iteration-count: 1; /* num of times animation happens */
     animation-timing-function: ease-out;  /* value can be a cubic-besier fn */
+  
+    @include respond(phone) {
+      letter-spacing: 1rem;
+      font-size: 5rem;
+    }
   }
   
   &--sub {
@@ -42,6 +47,10 @@ body {
     margin-right: -1.75rem;
     /* animation: name duration timing-function delay iteration-count direction fill-mode; */
     animation: moveInRight 1s ease-in-out;
+
+    @include respond(phone) {
+      letter-spacing: .5rem;
+    }
   }
 }
 
@@ -58,6 +67,14 @@ body {
   background-clip: text; // clips the background to exact place where text is
   -webkit-background-clip: text;
   color: transparent;
+
+  @include respond(tab-port) {
+    font-size: 3rem;
+  }
+
+  @include respond(phone) {
+    font-size: 2.5rem;
+  }
 
   &:hover {
     transform: skewY(2deg) skewX(15deg) scale(1.1);

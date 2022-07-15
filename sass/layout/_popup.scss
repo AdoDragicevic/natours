@@ -4,9 +4,21 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba($color-black, .8);
   z-index: 2000;
   transition: all .3s;
+  background-color: rgba($color-black, .8);
+
+  // check if browser supports some property
+  // this checks the same thing twice, that is not necessary, I added it to show how to add multiple conditions
+  @supports(  backdrop-filter: blur(10px) ) or ( -webkit-backdrop-filter: blur(10px) ) {
+
+    // instead of background color, this is a backckground blur!
+    backdrop-filter: blur(10px); // brightness(), invert(), sepia()
+
+    // if the background is blured, we will apply .4 opacity to background-color
+    background-color: rgba($color-black, .4);
+
+  }
 
   // make something dissapear
   opacity: 0;
@@ -64,6 +76,11 @@
 
     // 1. place child el next to each other with same height
     display: table;
+
+    @include respond(tab-land) {
+      width: 80%;
+      text-align: center;
+    }
   }
 
   &:target &__content {
@@ -78,7 +95,14 @@
     // 2. place child el next to each other with same height
     display: table-cell;
     vertical-align: middle;
-    
+
+    @include respond(tab-land) {
+      display: table-row;
+      width: 100%;
+      height: 10rem;
+      border: 1px solid red;
+      overflow: hidden;
+    }
   }
 
   &__right {
@@ -88,11 +112,34 @@
     // 2. place child el next to each other with same height
     display: table-cell;
     vertical-align: middle;
+
+    @include respond(tab-land) { 
+      width: 100%;
+      padding: 1rem 3rem 2rem 3rem;
+    }
   }
 
   &__img {
     display: block;
     width: 100%;
+
+    @include respond(tab-land) {
+      float: left;
+      width: 50%;
+      display: inline-block;
+      height: 20rem;
+      background-size: cover;
+    }
+
+    @include respond(phone) {
+      display: none;
+
+      &:last-child {
+        display: block;
+        width: 100%;
+        height: 25rem;
+      }
+    }
   }
 
   &__text {
@@ -111,6 +158,10 @@
     column-count: 2;
     column-gap: 4rem; // default is 1em (1em = font-size of current el)
     column-rule: 1px solid $color-gray-light-2; // like a border
+
+    @include respond(tab-land) {
+      column-count: 1;
+    }
   }
 
 }

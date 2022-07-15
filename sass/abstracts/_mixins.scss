@@ -14,3 +14,50 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+
+// MEDIA QUERY MIXINS MANAGER
+
+// good order of adding mixins: base -> layout -> pages -> components
+
+/* simplified version
+@mixin respond-phone {
+  @media screen and (max-width: $phone-vidth-variable | 600px) {
+    @content; // @content allows us to pass a block of code inside the mixin
+  }
+}
+*/
+
+// advanced version
+@mixin respond($breakpoint) {
+  
+  @if $breakpoint == phone {
+    // if user changes default font size we want media queires to be affected, so we use em
+    // in media queries em & rem are NOT affected by our root font-size setting! This is an exception.
+    // they are affected by the default browser font size (16px) or font size set by the user
+    // in media queries 1em = 16px, 1rem = 16px despite our root font-size setting!
+    // em are better in media queries (than rem) because of higer browser support
+    // if we want 600px, we divide it by 16
+    @media screen and (max-width: 37.5em) { // 600px (600 / 16) 
+      @content 
+    }; // ; is important here!!!
+  }
+
+  @if $breakpoint == tab-port {
+    @media screen and (max-width: 56.25em) { // 900px
+      @content;
+    };
+  }
+
+  @if $breakpoint == tab-land {
+    @media screen and (max-width: 75em) { // 1200px
+      @content;
+    };
+  }
+
+  @if $breakpoint == big-desktop {
+    @media screen and (min-width: 112.5em) { // 1800px
+      @content;
+    };
+  }
+}

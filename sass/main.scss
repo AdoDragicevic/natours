@@ -36,8 +36,32 @@ Responsive design principles
   - fluid layouts
     - float, flexbox, css-grid
   - responsive units
-  - flexible imgs
   - media queries
+  - responsive images
+
+Responsive images
+  - 3 options:
+      1. Resolution switching 
+        - smaller imgs on smaller screens (same img, different size/resolution)
+      2. Density switching
+        - same as above, but instead of screen size we look fro pixel density
+        - e.g. phones with 400px screen width use 2px to show 1px, so we need an img of 800px for
+          400px width img
+        - pixel density is amout of px in a cm or inch (high vs low resolution screens; @2x vs @1x)
+      3. Art direction
+        - different img on different screen size
+        - when you don't want to share the same img, but a whole differen timg
+        - e.g. maybe cropped img or a whole different img
+  - tools:
+    1. srcset attribute on <img> and <sorce>
+    2. css media query
+    3. <picture>
+  - check the footer logo in HTML, the img composition component in HTML (about section), and header in SASS
+
+Graceful degradation
+  - using new css features for newer browsers, while providing simpler styling for older browsers
+  - https://caniuse.com/
+  - by using @supports in css
 
 How CSS works
   - CSS parsing has 2 steps:
