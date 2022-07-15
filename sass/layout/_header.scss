@@ -32,9 +32,9 @@
   // RESPONSIVE IMGS
   // typ: add linear gradient over img to easily check if img is changing on screen-size/resolution change in dev tools
   // ',' between conditions has the meaning of 'or' / '|'
-  @media (min-resolution: 192dpi) and (min-width: 37.5em), 
-         (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.5em), // in firefox min-resolution is called differently
-         (min-width: 125em) {
+  @media only screen and (min-resolution: 192dpi) and (min-width: 37.5em), 
+         only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.5em), // in firefox min-resolution is called differently
+         only screen and (min-width: 125em) {
     background-image: 
     linear-gradient(
       to right bottom, 

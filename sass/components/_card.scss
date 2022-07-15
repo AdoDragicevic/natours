@@ -208,7 +208,10 @@
 
   // EASIER WAY TO DO DO MEDIA QUERIES WHEN THE CHANGE SI SIGNIFICANT:
   // add media query at the bootom, copy the whole code into it, then delete / edit what is needed
-  @include respond(tab-port) {
+  
+  // check if device can be hovered
+  @media only screen and (max-width: 56.25em),
+         only screen and (hover: none) { // hover:hover is the opposite
   
     height: auto;
 
