@@ -225,4 +225,11 @@ Sass
     - you should only ever use extend if the selectors (to which tge ruels are extended) are thematically related,
       e.g. you use it inside .btn-lg and .btn-sm
     - othervise it's better to use mixins (for mainainability)
+
+Build process:
+  1. main.scss
+  2. style.comp.css
+  3. style.concat.css (concat all css files; e.g. add bootstrap to your css)
+  4. style.prefix.css 
+  5. style.min.css
 */
